@@ -1,19 +1,44 @@
-import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
 import { Bell, ChevronLeft, ChevronDown, ChevronUp } from "lucide-react";
+import { Truck, MapPin, Eye } from "lucide-react";
 import '../styles/OrderDetails.css';
 
 const OrderDetails = () => {
+  const { id } = useParams();
   const [showPickupData, setShowPickupData] = useState(false);
-
+  const [allOrders, setAllOrders] = useState([]);
   const togglePickupData = () => {
     setShowPickupData(!showPickupData);
   };
-
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const handleResumeClick = () => {
     navigate("/");
   };
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const [allRes] = await Promise.all([
+          fetch('https://129bc152-6319-4e38-b755-534a4ee46195.mock.pstmn.io/orders'),
+        ]);
+
+        const allData = await allRes.json();
+        console.log('allData:', allData);
+
+        setAllOrders([allData.result]);
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+  if (loading) return <p>Cargando pedidos...</p>;
 
   return (
     <div className="order-details-container">
@@ -29,48 +54,75 @@ const OrderDetails = () => {
       </div>
 
       <div className="order-summary">
-        <p className="reference">Referencia A1180</p>
-        <h2>Order #7804GNZ</h2>
+        <p className="reference">Referencia {allOrders[0]?.reference_number}</p>
+        <h2 className="reference-id">Order #{id}</h2>
 
-        <div className="location">
-          <div className="location-point accepted">
-            <span className="icon">🚚</span>
-            <div>
-              <strong>Pickup</strong>
-              <p>New York</p>
-              <p>25 Mortada street, Gainalkes...</p>
-              <span className="status accepted">Accepted</span>
-            </div>
-          </div>
 
-          <div className="location-point onhold">
-            <div>
-              <strong>Dropoff</strong>
-              <p>New York</p>
-              <p>1789 NJ-27, Edison, 08817...</p>
-              <span className="status onhold">On hold</span>
+        <div className="order-section">
+          {allOrders[0]?.destinations?.map((dest, idx) => (
+            <div className="order-row" key={idx}>
+              {idx === 0 ? (
+                <div className="icon-wrapper">
+                  <div className="icon-inner">
+                    <Truck className="order-icon" size={18} color="#000000" style={{ background: "transparent" }} />
+                  </div>
+                </div>
+
+              ) : (
+                <div className="icon-wrapper2">
+                  <div className="icon-inner2">
+                  </div>
+                </div>
+              )}
+              <div className="order-info">
+                <p className="order-location">{idx === 0 ? 'Pickup' : 'Dropoff'}</p>
+                <p className="order-location">Mexico</p>
+                <p className="order-address compress">{dest.address || 'No Address Provided'}</p>
+                <p className={dest.status_string === 'En espera' ? 'order-address status' : 'order-address status colored'}>● {dest.status_string}
+                </p>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
+
+
       </div>
 
       <div className="tracking-card">
-        <img
-          src="https://static-00.iconduck.com/assets.00/avatar-default-symbolic-icon-479x512-n8sg74wg.png"
-          alt="User"
-          className="user-image"
-        />
-        <p className="time">10:30 PM</p>
+        <div className="tracking-intern">
+          <div className="user-container">
+            <img
+              src="https://static-00.iconduck.com/assets.00/avatar-default-symbolic-icon-479x512-n8sg74wg.png"
+              alt="User"
+              className="user-image"
+            />
+          </div>
 
-        <ul className="steps">
-          <li className="checked">Created Order</li>
-          <li className="checked">Accepted Order</li>
-          <li className="checked">Pickup set up by William</li>
-          <li className="pending">Pickup Completed</li>
-        </ul>
+          <p className="time">10:30 PM</p>
 
-        <button className="track-btn">Track Order</button>
+          <ul className="steps">
+            <li className="step checked">
+              <span className="icon"></span>
+              Created Order
+            </li>
+            <li className="step checked">
+              <span className="icon"></span>
+              Accepted Order
+            </li>
+            <li className="step unchecked">
+              <span className="icon"></span>
+              Pickup set up by William
+            </li>
+            <li className="step pending">
+              <span className="icon"></span>
+              Pickup Completed
+            </li>
+          </ul>
+
+          <button className="track-btn">Track Order</button>
+        </div>
       </div>
+
 
       <div className="pickup-data-section">
         <button className="toggle-btn" onClick={togglePickupData}>

@@ -5,7 +5,6 @@ import OrderList from './orderList';
 function Orders() {
 
     const [upcomingOrders, setUpcomingOrders] = useState([]);
-    const [allOrders, setAllOrders] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState("Upcoming");
@@ -33,11 +32,11 @@ function Orders() {
                 const allData = await allRes.json();
 
 
-                console.log('upcomingData:', upcomingData);
-                /* console.log('allData:', allData); */
+                /* console.log('upcomingData:', upcomingData); */
+                console.log('allData:', allData);
 
                 setUpcomingOrders(upcomingData.result);
-                setAllOrders([allData.result]); // Wrap in an array to match the structure of upcomingOrders
+                setAllOrders([allData.result]);
             } catch (error) {
                 console.error('Error fetching orders:', error);
             } finally {

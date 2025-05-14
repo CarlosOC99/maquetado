@@ -8,9 +8,9 @@ const OrderList = ({ destinations, is_today, start_date, order_number, status, t
     const navigate = useNavigate();
     const pickupStatus = getPickupStatus(start_date);
 
-    const handleResumeClick = () => {
-        navigate("/order-details"); // navega a la nueva ruta
-    };
+   const handleResumeClick = (orderId) => {
+  navigate(`/orders/${orderId}`); // pasas el ID en la URL
+}
 
     const formatDate = (timestamp) => {
         const date = new Date(timestamp);
@@ -47,11 +47,11 @@ const OrderList = ({ destinations, is_today, start_date, order_number, status, t
                         }
                     >
                         {status === 1
-                            ? 'Assigned'
+                            ? '● Assigned'
                             : status === 2
                                 ? '● In transit'
                                 : status === 3
-                                    ? 'Completed'
+                                    ? '● Completed'
                                     : ''}
                     </span>
                 </div>
@@ -85,7 +85,7 @@ const OrderList = ({ destinations, is_today, start_date, order_number, status, t
                             {pickupStatus.message}
                         </button>
                     )}
-                    <button className="resume-button" onClick={handleResumeClick}>
+                    <button className="resume-button" onClick={() => handleResumeClick(order_number)}>
                         Resume <Eye size={16} color="#000000" style={{ background: "transparent" }} />
                     </button>
                 </div>
