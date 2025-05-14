@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
-import { Bell, ChevronLeft, ChevronDown, ChevronUp, Pointer } from "lucide-react";
-import { Truck, MapPin, Eye } from "lucide-react";
+import { Bell, ChevronLeft, ChevronDown, ChevronUp, Check, Truck } from "lucide-react";
 import '../styles/OrderDetails.css';
 
 const OrderDetails = () => {
@@ -114,7 +113,7 @@ const OrderDetails = () => {
         <div className="tracking-intern">
           <div className="user-container">
             <img
-              src="https://static-00.iconduck.com/assets.00/avatar-default-symbolic-icon-479x512-n8sg74wg.png"
+              src="https://e7.pngegg.com/pngimages/1024/731/png-clipart-computer-icons-management-service-project-avatar-miscellaneous-face.png"
               alt="User"
               className="user-image"
             />
@@ -129,7 +128,9 @@ const OrderDetails = () => {
                   key={index}
                   className={`step ${item.active ? 'checked' : 'pending'}`}
                 >
-                  <span className="icon"></span>
+                  <span className="icon">
+                    {item.active && <Check size={16} color="#000" style={{ background: "transparent" }} />}
+                  </span>
                   {item.status}
                 </li>
               ))}

@@ -47,8 +47,8 @@
   box-sizing: border-box;
   /* para que el borde no aumente el tamaño del círculo */
   border-radius: 50%;
-  height: 60px;
-  width: 60px;
+  height: 50px;
+  width: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -113,9 +113,9 @@
   border-radius: 16px;
   justify-content: space-between;
   box-shadow: 
-    0 4px 6px rgba(0, 0, 0, 0.6),     /* sombra inferior suave */
-    0 1px 2px rgba(255, 255, 255, 0.05); /* brillo sutil */
-  border: 1px solid rgba(255, 255, 255, 0.05); /* borde interior tenue */
+    0 4px 6px rgba(0, 0, 0, 0.6),
+    0 1px 2px rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   overflow: hidden;
 }
 
@@ -170,6 +170,17 @@
   margin-right: 12px;
   position: relative;
   background-color: #222;
+}
+
+.step-item.with-line::after {
+  content: '';
+  position: absolute;
+  top: 28px; /* just below the icon */
+  left: 41px; /* align with center of icon */
+  width: 2px;
+  height: calc(100% - 28px);
+  background-color: #ffeb00;
+  z-index: 0;
 }
 
 .checked .icon {
