@@ -149,9 +149,17 @@ const OrderDetails = () => {
 
       <div className="pickup-data-section">
         <button className="toggle-btn" onClick={() => setShowLocationData(!showLocationData)}>
-          <span>{selectedLocationType === 0 ? 'Pickup Data' : 'Dropoff Data'}</span>
+          <span>{selectedLocationType === 0
+            ? 'Pickup Data'
+            : selectedLocationType === 1
+              ? 'Dropoff Data'
+              : 'No info available'}</span>
           {showLocationData ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
         </button>
+
+        {selectedLocationType === null && !showLocationData && (
+          <p className="no-info-msg">No info available</p>
+        )}
 
         {showLocationData && selectedLocationType !== null && (
           <div className="pickup-info">
