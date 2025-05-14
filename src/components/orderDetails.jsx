@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
-import { Bell, ChevronLeft, ChevronDown, ChevronUp } from "lucide-react";
+import { Bell, ChevronLeft, ChevronDown, ChevronUp, Pointer } from "lucide-react";
 import { Truck, MapPin, Eye } from "lucide-react";
 import '../styles/OrderDetails.css';
 
@@ -8,6 +8,7 @@ const OrderDetails = () => {
   const { id } = useParams();
   const [showPickupData, setShowPickupData] = useState(false);
   const [allOrders, setAllOrders] = useState([]);
+
   const togglePickupData = () => {
     setShowPickupData(!showPickupData);
   };
@@ -37,6 +38,26 @@ const OrderDetails = () => {
 
     fetchOrders();
   }, []);
+
+  const pickupStatuses = allOrders[0]?.result?.status_list?.pickup || [];
+  const activeCount = pickupStatuses.filter(item => item.active).length;
+  const isTrackEnabled = activeCount >= 3;
+
+  const [selectedLocationType, setSelectedLocationType] = useState(null); // 0 o 1
+  const [showLocationData, setShowLocationData] = useState(false);
+
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')
+      }/${date.getFullYear().toString().slice(-2)}`;
+  };
+
+  const formatTime = (timestamp) => {
+    const date = new Date(timestamp);
+    return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes()
+      .toString()
+      .padStart(2, '0')}`;
+  };
 
   if (loading) return <p>Cargando pedidos...</p>;
 
@@ -70,11 +91,12 @@ const OrderDetails = () => {
 
               ) : (
                 <div className="icon-wrapper2">
-                  <div className="icon-inner2">
-                  </div>
                 </div>
               )}
-              <div className="order-info">
+              <div className="order-info" onClick={() => {
+                setSelectedLocationType(idx); // idx será 0 para pickup y 1 para dropoff
+                setShowLocationData(true);
+              }}>
                 <p className="order-location">{idx === 0 ? 'Pickup' : 'Dropoff'}</p>
                 <p className="order-location">Mexico</p>
                 <p className="order-address compress">{dest.address || 'No Address Provided'}</p>
@@ -98,46 +120,54 @@ const OrderDetails = () => {
             />
           </div>
 
-          <p className="time">10:30 PM</p>
+          <p className="time">{formatTime(allOrders[0]?.start_date)}</p>
 
-          <ul className="steps">
-            <li className="step checked">
-              <span className="icon"></span>
-              Created Order
-            </li>
-            <li className="step checked">
-              <span className="icon"></span>
-              Accepted Order
-            </li>
-            <li className="step unchecked">
-              <span className="icon"></span>
-              Pickup set up by William
-            </li>
-            <li className="step pending">
-              <span className="icon"></span>
-              Pickup Completed
-            </li>
-          </ul>
+          {allOrders.length > 0 && (
+            <ul className="steps">
+              {allOrders[0].status_list.pickup.map((item, index) => (
+                <li
+                  key={index}
+                  className={`step ${item.active ? 'checked' : 'pending'}`}
+                >
+                  <span className="icon"></span>
+                  {item.status}
+                </li>
+              ))}
+            </ul>
+          )}
 
-          <button className="track-btn">Track Order</button>
+          <button
+            className={`track-btn ${isTrackEnabled ? 'activeb' : 'unactive'}`}
+            disabled={!isTrackEnabled}
+          >
+            Track Order
+          </button>
+
         </div>
       </div>
 
 
       <div className="pickup-data-section">
-        <button className="toggle-btn" onClick={togglePickupData}>
-          <span>Pickup Data</span>
-          {showPickupData ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+        <button className="toggle-btn" onClick={() => setShowLocationData(!showLocationData)}>
+          <span>{selectedLocationType === 0 ? 'Pickup Data' : 'Dropoff Data'}</span>
+          {showLocationData ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
         </button>
-        {showPickupData && (
+
+        {showLocationData && selectedLocationType !== null && (
           <div className="pickup-info">
-            <p>Isidro Fabela 10, Valle Verde y Terminal, 50140 Toluca de Lerdo, México</p>
-            <p>14 de Octubre 2023 • 10:30</p>
-            <p>+525567890346</p>
-            <p>johndoe@gmail.com</p>
+            <p>{allOrders[0]?.destinations[selectedLocationType]?.address}</p>
+            <p>
+              {allOrders[0]?.destinations[selectedLocationType]?.startDate
+                ? `${formatDate(allOrders[0].destinations[selectedLocationType].startDate)} • ${formatTime(allOrders[0].destinations[selectedLocationType].startDate)}`
+                : 'Sin fecha'}
+            </p>
+            <p>{allOrders[0]?.destinations[selectedLocationType]?.contact_info?.telephone}</p>
+            <p>{allOrders[0]?.destinations[selectedLocationType]?.contact_info?.email}</p>
           </div>
         )}
       </div>
+
+
     </div>
   );
 };

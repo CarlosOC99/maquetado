@@ -17,7 +17,8 @@
 
 .icon-wrapper {
   background-color: transparent;
-  border: 2px solid yellow; /* borde exterior */
+  border: 2px solid yellow;
+  /* borde exterior */
   border-radius: 50%;
   height: 50px;
   width: 50px;
@@ -27,7 +28,8 @@
 }
 
 .icon-inner {
-  background-color: yellow; /* círculo interior */
+  background-color: yellow;
+  /* círculo interior */
   border-radius: 50%;
   height: 38px;
   width: 38px;
@@ -37,24 +39,21 @@
 }
 
 .icon-wrapper2 {
-  background-color: transparent;
-  border: 2px solid black; /* borde exterior */
+  background-color: black;
+  border: 4px solid white;
+  /* borde interior */
+  box-sizing: border-box;
+  /* para que el borde no aumente el tamaño del círculo */
   border-radius: 50%;
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.icon-inner2 {
-  background-color: white; /* círculo interior */
-  border-radius: 50%;
-  height: 38px;
-  width: 38px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.truck-icon2 {
+  color: white;
 }
 
 .truck-icon {
@@ -187,21 +186,24 @@
 }
 
 .track-btn {
-  background-color: #ffe600;
   color: black;
   border: none;
   padding: 20px;
-  /* border-radius: 12px; */
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   font-weight: bold;
-  cursor: pointer;
   width: 100%;
   transition: background-color 0.2s;
 }
 
-.track-btn:hover {
-  background-color: #ffd000;
+.activeb {
+  background-color: #ffe600;
+  cursor: pointer;
+}
+
+.unactive {
+  background-color: lightgray;
+  cursor: not-allowed;
 }
 
 
@@ -232,4 +234,18 @@
   margin-top: 10px;
   border-radius: 8px;
   font-size: 0.9rem;
+}
+
+@media (min-width:1200px) {
+  .order-summary {
+    width: 90%;
+  }
+
+
+  .compress {
+    width: 700px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
