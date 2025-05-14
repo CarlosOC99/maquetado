@@ -1,0 +1,135 @@
+.order-details-container {
+  color: #fff;
+  font-family: sans-serif;
+  padding: 20px;
+  max-width: 400px;
+  margin: auto;
+  border-radius: 12px;
+}
+
+.order-summary {
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.reference {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.location {
+  margin-top: 10px;
+}
+
+.location-point {
+  margin-bottom: 12px;
+}
+
+.location-point .icon {
+  font-size: 1.5rem;
+  margin-right: 10px;
+}
+
+.status {
+  display: inline-block;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  padding: 2px 6px;
+  border-radius: 8px;
+}
+
+.status.accepted {
+  background-color: #2ecc71;
+  color: #000;
+}
+
+.status.onhold {
+  background-color: #e67e22;
+  color: #000;
+}
+
+.tracking-card {
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.user-image {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+.time {
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.steps {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+.steps li {
+  margin-bottom: 6px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.steps li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.steps li.checked::before {
+  background-color: #f1c40f;
+}
+
+.steps li.pending::before {
+  background-color: #555;
+}
+
+.track-btn {
+  background-color: #f1c40f;
+  color: #000;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+}
+
+.pickup-data-section {
+  margin-top: 10px;
+}
+
+.toggle-btn {
+  color: #fff;
+  border: 1px solid #444;
+  padding: 10px 12px;
+  border-radius: 8px;
+  width: 100%;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.pickup-info {
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}

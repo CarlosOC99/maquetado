@@ -1,0 +1,132 @@
+.order-container {
+  color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  max-width: 400px;
+  margin: auto;
+}
+
+.order-id {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1rem;
+}
+
+.order-id-highlight {
+  color: white;
+  font-weight: 600;
+}
+
+.order-card {
+  padding: 1rem 0 0 0;
+  border-radius: 1rem;
+  border: 1px solid #444;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
+.order-type {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.order-status {
+  font-size: 0.875rem;
+  
+}
+
+.transit{
+color: #3b82f6;
+}
+
+.completed{
+  color: #22c55e;
+}
+
+.order-section {
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
+.order-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.order-icon {
+  color: #facc15;
+  margin-top: 0.25rem;
+}
+
+.order-info {
+  flex: 1;
+}
+
+.order-location {
+  font-size: 0.875rem;
+  color: white;
+}
+
+.order-address {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.order-time {
+  text-align: right;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.order-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.pickup-button{
+  color: white;
+  font-weight: 600;
+  padding: 0.85rem 1.2rem;
+  border-top-right-radius: 999px;
+  border-bottom-right-radius: 999px;
+  border-bottom-left-radius: 999px;
+  border: none;
+}
+
+.available{
+cursor: pointer;
+background-color: #facc15;
+color: black;
+}
+
+
+.resume-button {
+  background-color: #facc15;
+  color: black;
+  font-weight: 600;
+  padding: 0.85rem 1.2rem;
+  border-top-left-radius: 999px;
+  border-bottom-left-radius: 999px;
+  border-bottom-right-radius: 999px;
+  border: none;
+  cursor: pointer;
+  margin-left: auto; /* empuja este botón al extremo derecho */
+}
+
+.resume-button {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  justify-content: center;
+}
